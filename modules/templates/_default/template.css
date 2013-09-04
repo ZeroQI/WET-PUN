@@ -1,0 +1,39 @@
+/* IE layers - http://msdn.microsoft.com/workshop/author/dhtml/reference/properties/haslayout.asp */
+
+body                  { background: white url(_background.gif) fixed 0 0 repeat;
+                        font: 12px verdana,sans-serif white;
+                        margin:1em; border:0; padding:0;
+                      }
+/*** ***/
+#wrap                 { margin:1em; /*border: 1px solid black; padding:1em;*/ height:auto; }
+#header               { margin:0; border: 1px solid #000000; padding:1em; height:auto; }
+#footer               { clear:both; /*IE reverse padding bug - activate layer:*/ zoom:1;
+                        marging 1em 0 0 0; border: 1px solid #000000; padding:1em;
+                      }
+/*** ***/
+#sidebar              { float:left; width:12em;  /*IE reverse padding bug - activate layer*/
+                        margin:0em 1em 1em 0; /*border: 1px solid #000000; padding:1em;*/ }
+#sidebar div.title    { margin:0; padding:0 .6em 0 .6em; background:#2040A0; color:white; }
+#sidebar ul           { margin:0; padding:0; list-style:none; border: 3px solid #2040A0; }
+#sidebar li           { margin:0; padding:0; display: inline; }
+#sidebar a            { margin:0; padding:0 6px 0 6px;   height:2em; line-height:2em;display:block; /*side*/
+                         background: url(../white.png) repeat;  
+                        _background: transparent; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale src='modules/templates/white.png');
+                      }
+#sidebar a.menu2      { color: black; }
+#sidebar a:hover      { background:#6060C0; color:white; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=false); }
+/*** ***/
+#main                 { margin: 0em 0 1em 13em; /*border: 1px solid #000000; padding:1em;*/ padding: 0em 0.6em 0em 0.6em; /*IE reverse padding bug - activate layer:*/ zoom:1; }
+#main div.title       { color:  white; background:#2040A0; }
+#main div.title a     { color:#ccccff; }
+#main div.content     { border: 3px solid #2040A0; color: black; padding: 0.5em; background: url(../white.png) repeat; /*IEWin:*/ zoom:1; _background:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale src='modules/templates/white.png'); }
+#main table           { border: 3px solid #2040A0; color:white; width:100%;      background: url(../white.png) repeat; /*IEWin:*/ zoom:1; _background:none; _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=scale src='modules/templates/white.png'); }
+#main th              { background:#2040A0; }
+#main tr:hover        { background:#8080D0; }
+#main div table       { border:0; width:auto; background:transparent;  _filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=false); zoom:1; }
+
+/*** ***/
+a                     { color: blue; text-decoration:none; }
+#main a       img     { border:2px solid black; margin:0.2em; }
+#main a:hover img     { border:2px solid red; zoom:1; }
+input,select,textarea { color: white; background:#90A0D0; }
