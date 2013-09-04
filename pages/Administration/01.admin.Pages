@@ -1,0 +1,12 @@
+<?php reset($MENU); while(list($ID,)=each($MENU)) $BOX[]=$ID; reset($MENU);
+
+if(!empty($_POST['ACTION']))   $_GET['FILE']=$_POST['ACTION'];
+if(empty($_GET['FILE']))       $_GET['FILE']=$BOX[0];
+
+require_once "modules/html.inc" ; html_combo_box($BOX,"","",$_GET['FILE']  ); echo "<br />\n";
+
+if(!empty($_GET['FILE']))
+{  $SESSION.="&FILE={$_GET['FILE']}";
+   require_once "modules/admin.inc"; admin_pages( "$PHP_PATH/{$_GET['FILE']}");
+}
+?>
