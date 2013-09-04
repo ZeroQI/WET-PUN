@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss version='0.91' xml:base='???'>
+<channel>
+   <title>TitleTitle</title>
+   <description>DescriptionDescription</description>
+   <link>index.php?page=01..News.phpindex.php?page=01..News.php</link>
+   <pubdate>Tue, 28 Aug 2007 18:08:58 GMT</pubdate>
+   <name>name</name>
+
+<item>
+<title>Title</title>
+<link>http://127.0.0.1/index.php</link>
+<author>Creator</author>
+<pubdate>Fri, 27 Jun 2008 19:28:36 GMT</pubdate>
+<description>Description</description>
+</item>
+
+<item>
+<title>TitlePic minPic max</title>
+<description>Description</description>
+<author>Creator</author>
+<link>index.php?page=01..News.phpindex.php?page=01..News.phpindex.php?page=01..News.php</link>
+<pubdate>Tue, 28 Aug 2007 11:40:03 GMT</pubdate>
+<guid>2007-08-28 Tue, 04h13</guid>
+<category>3</category>
+<url>modules/templates/wpakey.jpgmodules/templates/wpakey.jpg</url>
+<width>88144</width>
+<height>31400</height>
+</item>
+
+</channel>
+</rss>
