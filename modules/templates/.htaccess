@@ -1,0 +1,171 @@
+### Custom Error Pages ###
+#ErrorDocument 404 /index.php?ERROR=404
+#ErrorDocument 401 /index.php?ERROR=401-authreqd
+#ErrorDocument 403 /index.php?ERROR=403-forbidden
+
+### Protect files ###
+#<FilesMatch "*\.(csv|php|inc|htaccess)$">
+#	order deny,allow
+#	deny from all 
+#</FilesMatch> 
+
+
+#############################################################################
+# Directives controlling the display of server-generated directory listings #
+#############################################################################
+
+### Default options loaded ###
+Options +Indexes +MultiViews +FollowSymlinks
+
+<IfModule mod_autoindex.c>
+
+	### headers and footers ###
+
+	# If MultiViews Option is in effect, the server will look first for name.html then name.txt and include it if found.
+	#IndexIgnore header.html readme.html
+	HeaderName /templates/header.html
+	ReadmeName /templates/readme.html
+
+	# IndexIgnore is a set of filenames which directory indexing should ignore and not include in the listing. * permited
+	IndexIgnore  .??* *~ *# readme.html header.html HEADER README RCS CVS *,v *,t .DS_Store *.log
+
+
+	### FancyIndexing is whether you want fancy directory indexing or standard ###
+	IndexOptions FancyIndexing SuppressHTMLPreamble FoldersFirst IconsAreLinks
+	IndexOptions DescriptionWidth=* IconHeight=16 IconWidth=16  NameWidth=30 DescriptionWidth=30
+	#SuppressIcon SuppressRules (Apache 2.0.23 and later)
+
+	### Binaries ###
+	AddIcon /icons/small/exe.gif .exe 
+	AddDescription "Windows executable" .exe
+	AddIcon /icons/small/binary.gif .bin .cgi
+	AddDescription "server-side executable" .cgi
+
+	AddIcon /icons/small/binhex.gif .hqx
+	AddDescription "Mac binhex archive" .hqx
+
+	### Compressed files ###
+	AddIcon /icons/small/compressed.gif .bz .bz2 .gz .ace .arj .tar.gz .tgz
+	AddDescription "ace compressed archive" .ace
+	AddDescription "arj compressed archive" .arj
+	AddDescription "highly compressed bzip archive" .bz2 .bz 
+
+	AddIcon /icons/small/tar.gif .tar
+	AddDescription "tar (tape) archive" .tar
+
+	AddIcon /icons/small/zip.gif .Z .z .zip
+	AddDescription "GZIP compressed tar archive" .tgz .tar.gz
+	AddDescription "GZIP compressed document" .Z .z .gz .zip
+	AddDescription "ZIP compressed document" .zip 
+
+	AddIcon /icons/small/rar.gif .rar
+	AddDescription "highly compressed rar archive" .rar
+
+	AddIcon /icons/small/sit.gif .sit .sitx
+	AddDescription "stuffit archive" .sit
+	AddDescription "stuffitX archive" .sitx
+
+	### image files ###
+	AddIcon /icons/small/gif.gif .gif
+	AddDescription "legacy compuserve GIF image" .gif
+
+	AddIcon /icons/small/jpg.gif .jpg .jpeg .png
+	AddDescription "jpeg compressed photo image" .jpg .jpeg
+	AddDescription "portable network graphic (yay!)" .png
+
+	AddIcon /icons/small/a.gif .ps .ai .eps
+	AddDescription "vector (scalable) image" .ps .ai .eps
+
+	### Text files ###
+	AddIcon /icons/small/pdf.gif .pdf
+	AddDescription "adobe portable document" .pdf
+
+	AddIcon /icons/small/layout.gif .html .shtml .htm .css .dtd .xml .chm
+	AddDescription "good old hypertext" .html .shtml .htm
+	AddDescription "css stylesheet" .css
+	AddDescription "DocType Definition" .dtd
+	AddDescription "extensible markup language" .xml
+	AddDescription "win32 compressed html help" .chm
+
+	AddIcon /icons/small/text.gif .txt
+	AddDescription "nice plain text" .txt
+
+	AddIcon /icons/small/nfo.gif .diz .nfo .faq .readme .me
+	AddDescription "plain text info" .diz .nfo .faq .readme .me
+	
+	AddIcon /icons/small/man.gif .man
+	AddDescription "unix man page" .man
+	
+	AddIcon /icons/small/eml.gif .eml .mbox
+	AddDescription "email data" .eml .mbox
+	
+	AddIcon /icons/small/nfo.gif .doc
+	AddDescription "text type document" .doc
+	
+	AddIcon /icons/small/pl.gif .pl
+	AddDescription "pearl script" .pl
+	
+	AddIcon /icons/small/py.gif .py
+	AddDescription "python script" .py
+
+	AddIcon /icons/small/php.gif .php .php3 .php4 .phps
+	AddDescription "php script" .php  .php3 .php4
+	AddDescription "php source" .phps
+
+	AddIcon /icons/small/f.gif .for .f
+	AddDescription "dunno what for" .for
+
+	AddIcon /icons/small/uu.gif .uu .uue
+	AddDescription "7-bit uu encoded (news) file" .uu .uue
+
+	AddIcon /icons/small/js.gif .js .java
+	AddDescription "javascript" .js
+	AddDescription "java code"  .java
+
+	AddIcon /icons/small/script.gif .conf .sh .shar .csh .ksh .tcl .command .term
+	AddDescription "unix shell script" .sh .shar .csh .ksh .command
+	AddDescription "OS X clickable shell script" .command
+	AddDescription "configuration file" .conf
+	AddDescription "Mac OS X terminal" .term
+
+	AddIcon /icons/small/tex.gif .tex
+	AddDescription "smells like rubber" .tex
+
+	AddIcon /icons/small/bomb.gif core .o
+	AddDescription "core stuff!" core .o
+
+	AddIcon /icons/small/c.gif .c .h
+	AddDescription "code" .c
+	AddDescription "more code" .h
+	
+	### misc types ###
+	AddIcon /icons/small/torrent.gif  .torrent
+	AddDescription "BitTorrent file" .torrent
+
+	AddIcon /icons/small/world2.gif .wrl .wrl.gz .vrml .vrm .iv
+	AddDescription "some virtual world file" .wrl .wrl.gz .vrml .vrm .iv
+
+	AddIcon /icons/small/dvi.gif .dvi
+	AddDescription "dvi file!" .dvi
+
+	AddIcon /icons/small/num.gif   .1 .2 .3 .4 .5 .6 .7 .8 .9
+	AddDescription "Unknown" .1 .2 .3 .4 .5 .6 .7 .8 .9
+
+	AddDescription "windows link. ewww!" .lnk .url
+
+	### Generic rules and global icons ###
+	AddIconByEncoding (CMP,/icons/small/compressed.gif) x-compress x-gzip
+	AddIconByType (TXT,/icons/small/text.gif) text/*
+	AddIconByType (IMG,/icons/small/image.gif) image/*
+	AddIconByType (SND,/icons/small/sound2.gif) audio/*
+	AddIconByType (VID,/icons/small/movie.gif) video/*
+
+	AddIcon /icons/small/back.gif ..
+	AddIcon /icons/small/hand.right.gif README
+	AddIcon /icons/small/dir.gif ^^DIRECTORY^^
+	AddIcon /icons/small/blank.gif ^^BLANKICON^^
+
+	AddDescription "Directory" *
+	DefaultIcon /icons/small/generic.gif
+
+</IfModule>
