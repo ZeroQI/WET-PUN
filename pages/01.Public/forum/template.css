@@ -1,0 +1,12 @@
+/* IE layers - http://msdn.microsoft.com/workshop/author/dhtml/reference/properties/haslayout.asp */
+
+body                  { background: white url(_background.gif) fixed 0 0 repeat;
+                        font: 12px verdana,sans-serif white;
+                        margin:1em; border:0; padding:0;
+                      }
+/*** ***/
+	table { font: 1em  black      Verdana; background:#4E4379; width:90%; }
+	th    { font-size:12px; font-weight:bold; font-family:Verdana; color:#FFFFFF; }
+	td    { font-size:12px; font-weight:bold; font-family:Verdana; color:#000000; }
+	th,td { padding:0.5em; }
+ 
