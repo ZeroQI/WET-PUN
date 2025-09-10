@@ -1,8 +1,10 @@
-<?php	$LOGS_PATH="modules/access";    //Logs & Login base
-	$SKIN_PATH="modules/templates"; //Layout pages(layout.tpl), box(article.tpl), tags(tags.tpl), CSS(template.css)	('&SKIN=_Folder_name_' to load)
-	$PHP_PATH="pages";              //User - Php pages shown in the left menu + news, quotes
-					//Global variables: $_GET['page', 'SKIN'], $P_RANK, $P_AUTH, $SESSION, $MENU, $SECTION
-					//Temp   variables: $ARRAY, $TEMP
+<?php
+$LOGS_PATH="modules/access";    //Logs & Login base
+$SKIN_PATH="modules/templates"; //Layout pages(layout.tpl), box(article.tpl), tags(tags.tpl), CSS(template.css)	('&SKIN=_Folder_name_' to load)
+$PHP_PATH ="pages";             //User - Php pages shown in the left menu + news, quotes
+//Global variables: $_GET['page', 'SKIN'], $P_RANK, $P_AUTH, $SESSION, $MENU, $SECTION
+//Temp   variables: $ARRAY, $TEMP
+
 /*** Time generation ***/
 $starttime =  explode(' ', microtime());
 
@@ -94,11 +96,11 @@ if(!empty($P_AUTH)&& strpos($_SESSION['RIGHTS'],$P_AUTH)===false )
 else include($SECTION."/".$_GET['page']);
 article();
 
-$endtime = explode(' ', microtime());
-$processtime= $endtime[0]+$endtime[1]-$starttime[0]-$starttime[1];
-echo "generated on ".gmdate('D, d M Y H:i:s \G\M\T',time())." in ";
-printf("%1.3f sec.",$processtime);
+//$endtime = explode(' ', microtime());
+//$processtime= $endtime[0]+$endtime[1]-$starttime[0]-$starttime[1];
+//echo "generated on ".gmdate('D, d M Y H:i:s \G\M\T',time())." in ";
+//printf("%1.3f sec.",$processtime);
 
-$PAGE_STRING=ob_get_contents(); ob_end_clean(); ob_start("zlib.output_handler");
+$PAGE_STRING=ob_get_contents(); ob_end_clean(); ob_start("ob_gzhandler"); //ob_start("zlib.output_handler");
 echo str_replace( array("%MENU%", "%CONTENT%", "%SKIN_PATH%"), array($MENU_STRING, $PAGE_STRING, "$SKIN_PATH/{$_GET['SKIN']}" ), implode("", 	file("$SKIN_PATH/{$_GET['SKIN']}/layout.tpl")) );
 ?>
