@@ -3,15 +3,16 @@
 /*** Administer logins, passwords and rights ***/
 function admin_accounts($FILE)
 {  function display_rights($RIGHTS_NAME, $ELEMENT, $TYPE=0 )
-   {  $StrING="";
-      while(list($LINE,$RIGHT)=each($RIGHTS_NAME))
-      {  $RIGHT=trim($RIGHT);
+   {  global $ARRAY, $RIGHT;
+      $STRING="";
+      foreach($ARRAY as $LINE_KEY => $LINE)   
+	  {  $RIGHT=trim($RIGHT);
          if(empty($RIGHT)) continue;
-         if($TYPE==0) if( strpos($ELEMENT,$RIGHT)===false ) $StrING.="<StrIKE>$RIGHT</StrIKE>"; else $StrING.=$RIGHT;
-         else $StrING.="<INPUT TYPE=checkbox NAME=NEW_RIGHTS[$LINE] VALUE=$RIGHT".(strpos($ELEMENT,$RIGHT)===false?"":" CHECKED").">$RIGHT";
-         $StrING.="&nbsp;&nbsp;";
+         if($TYPE==0) if( strpos($ELEMENT,$RIGHT)===false ) $STRING.="<StrIKE>$RIGHT</StrIKE>"; else $STRING.=$RIGHT;
+         else $STRING.="<INPUT TYPE=checkbox NAME=NEW_RIGHTS[$LINE] VALUE=$RIGHT".(strpos($ELEMENT,$RIGHT)===false?"":" CHECKED").">$RIGHT";
+         $STRING.="&nbsp;&nbsp;";
       }
-      return $StrING;
+      return $STRING;
    }
    if(empty($_GET['ACTION'])) $_GET['ACTION'  ]=""; if(empty($_POST['DATA' ][0])) $_POST['DATA'][0]=""; if(empty($_POST['NEW_RIGHTS'])) $_POST['NEW_RIGHTS']=array();
    require_once "modules/flat.inc"; $ARRAY=csv_read_array($FILE,";",0);
@@ -36,10 +37,10 @@ function admin_accounts($FILE)
    }
    echo "<table>\n<tr class='title'> <th width=30%>User name</th> <th width=30%>Password</th> <th width=20%>Rights</th> <th width=20%>Action</th></tr>\n";
    if($_GET['ACTION']!="modify") $ARRAY[]="ADD";
-   while( list($LINE_KEY,$LINE) = each($ARRAY) )
+   foreach($ARRAY as $LINE_KEY => $LINE)   
    {  echo "<tr CLASS='content'>";
       if( $LINE!="ADD" && !($_GET['ACTION']=="modify" && $LINE[0]==$_GET['DATA'][0]) ) /*** display row ***/
-      {  while( list($COL_KEY,$ELEMENT)=each($LINE) )
+      {  foreach($LINE as $COL_KEY => $ELEMENT)   //PHP7, deprecated: while( list($COL_KEY,$ELEMENT)=each($LINE) )
          {  switch($COL_KEY)
             {  case 1: echo "<td>MD5 coded password</td> "; break;
                case 2: echo "<td>".display_rights($RIGHTS_NAME, $ELEMENT, 0)."</td> "; break;
@@ -96,4 +97,6 @@ function admin_pages($DIRECTORY)
    //if ($_GET['ACTION']=="modify" && file_exists("$DIRECTORY/{$_GET['ITEM']}")) echo "<tr CLASS=content><td COLSPAN=5><TEXTAREA wrap=off name=TEXT cols=80% rows=20%>".rtrim(str_replace("\r\r\n", "\n", implode("",file("$DIRECTORY/{$_GET['ITEM']}"))))."</TEXTAREA></FORM></td></tr>\n";
    echo "</table><br />\n";
 }
+
+
 ?>
