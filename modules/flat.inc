@@ -43,7 +43,7 @@ function ini_file($filename)
 function csv_display_array($ARRAY, $TITLE=1)
 {  global $SKIN_PATH; $table=ini_file("$SKIN_PATH/{$_GET['SKIN']}/tags.ini");
    echo "{$table['header']}\n";
-   while(list($LINE_NB,$LINE)=each($ARRAY)) 
+   foreach($ARRAY as $LINE_NB => $LINE) 
    {  if(!is_array($LINE)) $LINE=array($LINE);
       if($TITLE-1==$LINE_NB) $temp="title-"; else $temp="";
       echo "{$table[$temp.'line-begin']}";
@@ -84,7 +84,7 @@ function admin_csv($FILE,$TITLE=1,$COL=0, $SEPARATOR=";")
    
    if( $_GET['ACTION']=="remove" || $_GET['ACTION']=="add" || $_GET['ACTION']=="update" )    /*** Modify array ***/
    {  $OCCURENCE= 0; $LINE_INSERT=-1;
-      while(list($LINE_NB,$LINE)=each($ARRAY))
+      foreach($ARRAY as $LINE_KEY => $LINE)
       {  if($LINE[0]==$_GET['ID']) { $LINE_INSERT=$LINE_NB; $OCCURENCE++; }
          if($LINE[0]==$_POST['DATA'][0]) $OCCURENCE++;
       }
@@ -97,18 +97,18 @@ function admin_csv($FILE,$TITLE=1,$COL=0, $SEPARATOR=";")
    if($_GET['ACTION']!="modify")   $ARRAY[][0]="ADD";
 
    echo "<TABLE width='100%'>\n";
-   while(list($LINE_NB,$LINE)=each($ARRAY))
+   foreach($ARRAY as $LINE_NB => $LINE)
    {  $LINE[0] = str_replace("\'", "\\\'", $LINE[0]);
       echo "<tr CLASS='content' valign='top'>";
       if( $LINE[0]!="ADD" && ($_GET['ACTION']!="modify" || $LINE[0]!=$_GET['ID']) ) /*** display row ***/
-      {  if($TITLE==1 && $LINE_NB==0) { while(list($COLUMN_KEY,$ELEMENT)=each($LINE)) echo "<TH CLASS=title>$ELEMENT</TH>"; echo "<TH CLASS=title>Action</TH>"; }
+      {  if($TITLE==1 && $LINE_NB==0) { foreach($LINE as $COLUMN_KEY => $ELEMENT)  echo "<TH CLASS=title>$ELEMENT</TH>"; echo "<TH CLASS=title>Action</TH>"; }
          else 
          {  foreach($LINE as $ELEMENT) echo "<TD>$ELEMENT</td> ";
             echo "<TD ALIGN=CENTER> <A HREF='index.php?page={$_GET['page']}&amp;FILE=$FILE&amp;ACTION=modify&ID={$LINE[0]}'>Modify</A>&nbsp; <A HREF='index.php?page={$_GET['page']}&FILE=$FILE&ACTION=remove&ID={$LINE[0]}' onclick='if( !confirm('delete {$LINE[0]}') ) {location.href='#';return false;}'>Delete</A> </td>";
       }  }
       else /*** add or update form ***/
       {  echo "<form method=POST action='index.php?page={$_GET['page']}&FILE=$FILE&ACTION=".($LINE[0]=="ADD"?"add":"update")."&ID={$LINE[0]}'>";
-         while(list($FIELD_KEY,$FIELD)=each($LINE)) echo "<TD><input type=text name=DATA[$FIELD_KEY] value=$FIELD></td>";
+         foreach($LINE as $FIELD_KEY => $FIELD)  echo "<TD><input type=text name=DATA[$FIELD_KEY] value=$FIELD></td>";
          echo "<TD ALIGN=CENTER VALIGN=TOP><input type=submit value=".($LINE[0]=="ADD"?"add":"update")."> <A HREF='index.php?page={$_GET['page']}&FILE=$FILE'>Cancel</A></td></FORM>";
       }
       echo "</tr>\n";
